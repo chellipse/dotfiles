@@ -1,0 +1,213 @@
+# See dunst(5) for all configuration options
+
+
+[global]
+    ### Display ###
+
+    # Which monitor should the notifications be displayed on.
+    monitor = 0
+
+    # Display notification on focused monitor.  Possible modes are:
+    #   mouse: follow mouse pointer
+    #   keyboard: follow window with keyboard focus
+    #   none: don't follow anything
+    #
+    # "keyboard" needs a window manager that exports the
+    # _NET_ACTIVE_WINDOW property.
+    # This should be the case for almost all modern window managers.
+    #
+    # If this option is set to mouse or keyboard, the monitor option
+    # will be ignored.
+    follow = none
+
+    ### Geometry ###
+
+    # dynamic width from 0 to 300
+    # width = (0, 300)
+    # constant width of 300
+    width = 440
+    # width = (400, 500)
+
+    # The maximum height of a single notification, excluding the frame.
+    height = 240
+    # height = (280, 340)
+
+    origin = top-right
+    offset = 16x32
+
+    scale = 0
+
+    notification_limit = 0
+
+    ### Progress bar ###
+
+    progress_bar = true
+
+    progress_bar_height = 10
+
+    progress_bar_frame_width = 1
+
+    progress_bar_min_width = 150
+
+    progress_bar_max_width = 300
+
+    indicate_hidden = yes
+
+    # The transparency of the window.  Range: [0; 100].
+    # This option will only work if a compositing window manager is
+    # present (e.g. xcompmgr, compiz, etc.). (X11 only)
+    transparency = 0
+
+    # Padding between text and separator.
+    padding = 8
+
+    # Horizontal padding.
+    horizontal_padding = 8
+
+    # Padding between text and icon.
+    text_icon_padding = 0
+
+    # Defines width in pixels of frame around the notification window.
+    # Set to 0 to disable.
+    frame_width = 1
+
+    # Defines color of the frame around the notification window.
+    frame_color = "#1e1e2e"
+
+    # Size of gap to display between notifications - requires a compositor.
+    # If value is greater than 0, separator_height will be ignored and a border
+    # of size frame_width will be drawn around each notification instead.
+    # Click events on gaps do not currently propagate to applications below.
+    gap_size = 5
+
+    # Define a color for the separator.
+    # possible values are:
+    #  * auto: dunst tries to find a color fitting to the background;
+    #  * foreground: use the same color as the foreground;
+    #  * frame: use the same color as the frame;
+    #  * anything else will be interpreted as a X color.
+    separator_color = frame
+
+    # Sort messages by urgency.
+    sort = yes
+
+    # Don't remove messages, if the user is idle (no mouse or keyboard input)
+    # for longer than idle_threshold seconds.
+    # Set to 0 to disable.
+    # A client can set the 'transient' hint to bypass this. See the rules
+    # section for how to disable this if necessary
+    # idle_threshold = 120
+
+    ### Text ###
+
+    font = Monospace 12
+
+    markup = full
+
+    # The format of the message.  Possible variables are:
+    #   %a  appname
+    #   %s  summary
+    #   %b  body
+    #   %i  iconname (including its path)
+    #   %I  iconname (without its path)
+    #   %p  progress value if set ([  0%] to [100%]) or nothing
+    #   %n  progress value if set without any extra characters
+    #   %%  Literal %
+    # Markup is allowed
+    format = "<b>%s</b>\n%b"
+    # format = "%a\n<b>%s</b>\n%b"
+
+    alignment = left
+
+    vertical_alignment = center
+
+    show_age_threshold = 60
+
+    ellipsize = middle
+
+    # Ignore newlines '\n' in notifications.
+    ignore_newline = no
+
+    stack_duplicates = true
+
+    show_indicators = no
+    enable_recursive_icon_lookup = true
+
+    icon_theme = Adwaita
+    icon_position = left
+
+    min_icon_size = 32
+    max_icon_size = 96
+
+    # Paths to default icons (only neccesary when not using recursive icon lookup)
+    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+
+    ### History ###
+    sticky_history = yes
+
+    # Maximum amount of notifications kept in history
+    history_length = 20
+
+    ### Misc/Advanced ###
+
+    # dmenu path.
+    #dmenu = /usr/bin/dmenu -p dunst:
+
+    # Browser for opening urls in context menu.
+    #browser = /usr/bin/xdg-open
+
+    always_run_script = true
+
+    # Define the title of the windows spawned by dunst
+    title = Dunst
+
+    # Define the class of the windows spawned by dunst
+    class = Dunst
+
+    ignore_dbusclose = true
+
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[match]
+    appname="Signal"
+    timeout=60
+    urgency="critical"
+
+[match]
+    desktop_entry = "signal-desktop"
+    timeout = 60
+    urgency = critical
+
+[urgency_low]
+    background = "#11111b"
+    foreground = "#cdd6f4"
+    timeout = 10
+
+[urgency_normal]
+    background = "#11111b"
+    foreground = "#cdd6f4"
+    timeout = 10
+
+[urgency_critical]
+    background = "#900000"
+    foreground = "#ffffff"
+    frame_color = "#ff0000"
+    # background = "#11111b"
+    # foreground = "#cdd6f4"
+    timeout = 10
+
+[match]
+    appname = "Signal"
+    timeout = 60
+    urgency = critical
+
+[match]
+    desktop_entry = "signal-desktop"
+    timeout = 60
+    urgency = critical
+
+# [match]
+#     appname="notify-send"
+#     timeout = 60

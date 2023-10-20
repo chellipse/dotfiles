@@ -1,0 +1,105 @@
+icons_format = "{icon}"
+
+[theme]
+theme = "solarized-dark"
+[theme.overrides]
+idle_bg = "#181818"
+# idle_bg = "#222222"
+# idle_fg = "#cdd6f4"
+idle_fg = "#d6cfd6"
+
+[icons]
+icons = "awesome5"
+#icons = "none"
+[icons.overrides]
+#bat = ["|E|", "|_|", "|=|", "|F|"]
+#bat_charging = "|^| "
+
+[[block]]
+block = "tea_timer"
+increment = 60
+done_cmd = "notify-send -t 8000 -u critical 'TIMER END.\nTIMER END.\nTIMER END.'"
+
+[[block]]
+block = "time"
+interval = 5
+format = " $timestamp.datetime(f:'%-I:%M %p %a, %b %d %Y') "
+
+#[[block]]
+#block = "weather
+
+[[block]]
+block = "net"
+#format = " $icon $ssid $signal_strength "
+format = " $icon { $ssid $signal_strength |Wired connection} "
+[[block.click]]
+button = "right"
+cmd = "alacritty -e nmtui"
+
+[[block]]
+block = "battery"
+device = "BAT0"
+format = " $icon $percentage "
+full_format = " $icon $percentage {$time |}"
+# if below
+info = 60
+# triggers if above
+good = 60
+# if below
+warning = 40
+critical = 20
+
+[[block]]
+block = "battery"
+device = "BAT1"
+format = " $icon $percentage "
+full_format = " $icon $percentage {$time |}"
+# if below
+info = 60
+# triggers if above
+good = 60
+# if below
+warning = 40
+critical = 20
+
+[[block]]
+block = "load"
+format = " $icon $1m.eng(w:4) $5m.eng(w:4) $15m.eng(w:4) "
+info = 0.3
+warning = 0.6
+critical = 0.9
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+interval = 120
+warning = 20.0
+alert = 10.0
+format = " $icon $available.eng(w:2) "
+
+[[block]]
+block = "memory"
+#format = " $icon $mem_used /$mem_avail "
+format = " $icon $mem_used.eng(prefix:Mi)/$mem_total.eng(prefix:Mi)($mem_used_percents.eng(w:2)) "
+format_alt = " $icon_swap $swap_used_percents.eng(w:2) "
+warning_mem = 70
+critical_mem = 85
+
+[[block]]
+block = "sound"
+show_volume_when_muted = true
+headphones_indicator = true
+#[[block.click]]
+#button = "left"
+#cmd = "pavucontrol"
+
+[[block]]
+block = "apt"
+interval = 1800
+ignore_phased_updates = true
+
+[[block]]
+block = "uptime"
+format = " $text "

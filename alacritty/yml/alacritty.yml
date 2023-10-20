@@ -1,0 +1,8 @@
+[shell]
+program = "/usr/bin/bash"
+
+
+[font]
+# change to Ubuntu Mono maybe, default is monospace
+normal = { family="Ubuntu Mono", style="Regular" } 
+bold = { style="bold" }
