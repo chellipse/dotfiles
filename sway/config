@@ -34,7 +34,18 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+# set $menu dmenu_path | bemenu | xargs swaymsg exec --
+# set $menu dmenu_path | dmenu -l 10 | xargs swaymsg exec --
+
+set $menu dmenu_path | \
+    bemenu -if \
+    --prompt '>' \
+    --fn 'monospace 12' \
+    | xargs swaymsg exec --
+
+    # --width-factor 0.2 \
+    # --fixed-height \
+    # --list 20 \
 
 ### Startup apps
 
@@ -136,11 +147,6 @@ bindsym $mod+Shift+q kill
 
 # start program launcher
 bindsym $mod+d exec $menu
-
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 # change focus
 bindsym $mod+$left focus left
@@ -271,11 +277,11 @@ bar {
 
     colors {
         separator #666666
-        background #181818
+        background #121212
         statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
+        focused_workspace #121212 #d81860 #ffffff
+        active_workspace #121212 #333333 #ffffff
+        inactive_workspace #121212 #333333 #888888
         urgent_workspace #2f343a #900000 #ffffff
     }
 }

@@ -3,10 +3,12 @@ icons_format = "{icon}"
 [theme]
 theme = "solarized-dark"
 [theme.overrides]
-idle_bg = "#181818"
+idle_bg = "#121212"
 # idle_bg = "#222222"
 # idle_fg = "#cdd6f4"
 idle_fg = "#d6cfd6"
+info_fg = "#d81860"
+info_bg = "#121212"
 
 [icons]
 icons = "awesome5"
@@ -23,7 +25,11 @@ done_cmd = "notify-send -t 8000 -u critical 'TIMER END.\nTIMER END.\nTIMER END.'
 [[block]]
 block = "time"
 interval = 5
-format = " $timestamp.datetime(f:'%-I:%M %p %a, %b %d %Y') "
+# format = " $timestamp.datetime(f:'%-I:%M %p %a, %b %d %Y') "
+# format = " $timestamp.datetime(f:'%:z / %-I:%M %p %a, %m-%d-%Y') "
+format = " $timestamp.datetime(f:'%:z / %Y-%m-%d(%w) %H:%M') "
+
+# print(datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
 
 #[[block]]
 #block = "weather
@@ -39,25 +45,27 @@ cmd = "alacritty -e nmtui"
 [[block]]
 block = "battery"
 device = "BAT0"
-format = " $icon $percentage "
-full_format = " $icon $percentage {$time |}"
+format = " $icon $percentage {$time $power} "
+full_format = " $icon "
+empty_format = ""
 # if below
-info = 60
+info = 0
 # triggers if above
-good = 60
+good = 100
 # if below
-warning = 40
-critical = 20
+warning = 0
+critical = -1
 
 [[block]]
 block = "battery"
 device = "BAT1"
-format = " $icon $percentage "
-full_format = " $icon $percentage {$time |}"
+format = " $icon $percentage {$time $power} "
+full_format = " $icon "
+empty_format = ""
 # if below
 info = 60
 # triggers if above
-good = 60
+good = 100
 # if below
 warning = 40
 critical = 20

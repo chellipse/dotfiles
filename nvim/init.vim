@@ -30,6 +30,19 @@ call plug#end()
 " inoremap <leader>j <C-n>
 " inoremap <leader>k <C-p>
 
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" map <leader>a <Plug>(coc-codeaction-selected)
+" map <leader>rn <Plug>(coc-rename)
+" map <leader>rf <Plug>(coc-refactor)
+" map <leader>gr <Plug>(coc-references)
+" map <leader>gi <Plug>(coc-implementation)
+" map <leader>gy <Plug>(coc-type-definition)
+" map <silent> gd <Plug>(coc-definition)
+" map <Leader>ca <Plug>(coc-codeaction-line)
+" map <Leader>ac <Plug>(coc-codeaction-cursor)
+" map <Leader>ao <Plug>(coc-codelens-action)
+
 """ COLORS
 let g:color_mode = 1
 set termguicolors
@@ -94,7 +107,7 @@ set mouse=
 
 filetype off
 
-set number
+set number rnu
 
 " syntax highlighting
 syntax on

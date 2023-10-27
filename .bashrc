@@ -7,6 +7,7 @@ QT_QPA_PLATFORM=xcb
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/i3status-rust:$PATH"
 export PATH="$HOME/bin:$PATH"
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 fnv() {
     find . -iname "$1" | xargs nvim
