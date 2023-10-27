@@ -4,11 +4,23 @@ icons_format = "{icon}"
 theme = "solarized-dark"
 [theme.overrides]
 idle_bg = "#121212"
-# idle_bg = "#222222"
-# idle_fg = "#cdd6f4"
 idle_fg = "#d6cfd6"
-info_fg = "#d81860"
+
 info_bg = "#121212"
+info_fg = "#d81860"
+
+good_bg = "#121212"
+good_fg = "#859900"
+
+warning_bg = "#b58900"
+warning_fg = "#002b36"
+
+critical_bg = "#dc322f"
+critical_fg = "#002b36"
+
+# separator = "\ue0b2"
+# separator_bg = "auto"
+# separator_fg = "auto"
 
 [icons]
 icons = "awesome5"
