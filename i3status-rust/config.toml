@@ -7,52 +7,76 @@ idle_bg = "#121212"
 idle_fg = "#d6cfd6"
 
 info_bg = "#121212"
-info_fg = "#d81860"
+info_fg = "#268bd2"
 
 good_bg = "#121212"
-good_fg = "#859900"
+good_fg = "#89b500"
 
-warning_bg = "#b58900"
-warning_fg = "#002b36"
+warning_bg = "#121212"
+warning_fg = "#b58900"
 
-critical_bg = "#dc322f"
-critical_fg = "#002b36"
+critical_bg = "#121212"
+critical_fg = "#ff2020"
 
-# separator = "\ue0b2"
-# separator_bg = "auto"
-# separator_fg = "auto"
+# "#121212"
+# "#d81860"
+
+# "#d6cfd6"
+# "#268bd2"
+# "#859900"
+# "#b58900"
+# "#dc322f"
+
 
 [icons]
-icons = "awesome5"
-#icons = "none"
+icons = "awesome4"
 [icons.overrides]
-#bat = ["|E|", "|_|", "|=|", "|F|"]
-#bat_charging = "|^| "
 
 [[block]]
-block = "tea_timer"
-increment = 60
-done_cmd = "notify-send -t 8000 -u critical 'TIMER END.\nTIMER END.\nTIMER END.'"
+block = "custom"
+format = " $text "
+# json = true
+cycle = ["~/.config/scripts/weather_bar2.sh", "~/.config/scripts/weather_bar2.sh -l"]
+interval = 1200
+# watch_files = ""
+[[block.click]]
+button = "left"
+update = true
+[[block.click]]
+button = "right"
+action = "cycle"
+
+[[block]]
+block = "apt"
+interval = 1800
+ignore_phased_updates = true
+[[block.click]]
+button = "left"
+update = true
 
 [[block]]
 block = "time"
 interval = 5
 # format = " $timestamp.datetime(f:'%-I:%M %p %a, %b %d %Y') "
 # format = " $timestamp.datetime(f:'%:z / %-I:%M %p %a, %m-%d-%Y') "
-format = " $timestamp.datetime(f:'%:z / %Y-%m-%d(%w) %H:%M') "
-
-# print(datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
-
-#[[block]]
-#block = "weather
+[block.format]
+short = " $timestamp.datetime(f:'%Y-%m-%d(%w) %H:%M') "
+full = " $timestamp.datetime(f:'%:z / %Y-%m-%d(%w) %H:%M') "
+[block.theme_overrides]
+# idle_bg = "#121212"
+idle_fg = "#86dfef"
 
 [[block]]
 block = "net"
-#format = " $icon $ssid $signal_strength "
-format = " $icon { $ssid $signal_strength |Wired connection} "
+format = " $icon $ssid $signal_strength "
+format_alt = " $icon $ssid $signal_strength $bitrate $speed_down $speed_up $graph_down $graph_up "
+interval = 2
+[[block.click]]
+button = "middle"
+cmd = "alacritty -e nmtui"
 [[block.click]]
 button = "right"
-cmd = "alacritty -e nmtui"
+action = "toggle_format"
 
 [[block]]
 block = "battery"
@@ -60,13 +84,19 @@ device = "BAT0"
 format = " $icon $percentage {$time $power} "
 full_format = " $icon "
 empty_format = ""
+interval = 60
 # if below
-info = 0
+info = 100
 # triggers if above
 good = 100
 # if below
 warning = 0
 critical = -1
+[[block.click]]
+button = "left"
+update = true
+# [block.theme_overrides]
+# idle_fg = "#268bd2"
 
 [[block]]
 block = "battery"
@@ -74,52 +104,90 @@ device = "BAT1"
 format = " $icon $percentage {$time $power} "
 full_format = " $icon "
 empty_format = ""
+interval = 20
 # if below
-info = 60
+info = 100
 # triggers if above
 good = 100
 # if below
 warning = 40
 critical = 20
+[[block.click]]
+button = "left"
+update = true
+# [block.theme_overrides]
+# idle_fg = "#268bd2"
+
+[[block]]
+block = "cpu"
+interval = 2
+# format = " $icon $utilization $barchart "
+format = " $icon $utilization "
+format_alt = " $icon $utilization $frequency $max_frequency $barchart "
+[[block.click]]
+button = "left"
+update = true
+[[block.click]]
+button = "right"
+action = "toggle_format"
 
 [[block]]
 block = "load"
-format = " $icon $1m.eng(w:4) $5m.eng(w:4) $15m.eng(w:4) "
+# format = " $icon $1m.eng(w:4) $5m.eng(w:4) $15m.eng(w:4) "
+format = " $icon $1m.eng(w:4) $5m.eng(w:4) "
+interval = 6
 info = 0.3
 warning = 0.6
 critical = 0.9
+[[block.click]]
+button = "left"
+update = true
+
+[[block]]
+block = "memory"
+format = " $icon $mem_avail_percents $swap_free_percents "
+format_alt = " $icon $mem_used.eng(prefix:Mi)/$mem_total.eng(prefix:Mi) $swap_used.eng(prefix:Mi)/$swap_total.eng(prefix:Mi) "
+interval = 15
+warning_mem = 70
+critical_mem = 85
+[[block.click]]
+button = "left"
+update = true
+[[block.click]]
+button = "right"
+action = "toggle_format"
 
 [[block]]
 block = "disk_space"
 path = "/"
 info_type = "available"
 alert_unit = "GB"
-interval = 120
+interval = 180
 warning = 20.0
 alert = 10.0
 format = " $icon $available.eng(w:2) "
-
-[[block]]
-block = "memory"
-#format = " $icon $mem_used /$mem_avail "
-format = " $icon $mem_used.eng(prefix:Mi)/$mem_total.eng(prefix:Mi)($mem_used_percents.eng(w:2)) "
-format_alt = " $icon_swap $swap_used_percents.eng(w:2) "
-warning_mem = 70
-critical_mem = 85
+[[block.click]]
+button = "left"
+update = true
 
 [[block]]
 block = "sound"
+format = " $icon $volume "
 show_volume_when_muted = true
 headphones_indicator = true
-#[[block.click]]
-#button = "left"
-#cmd = "pavucontrol"
+step_width = 2
+max_vol = 130
 
 [[block]]
-block = "apt"
-interval = 1800
-ignore_phased_updates = true
+block = "backlight"
+format = " $icon $brightness "
+invert_icons = true
+root_scaling = 2.4
+minimum = 5
+maximum = 100
+cycle = [20, 40, 60, 80, 100]
 
 [[block]]
 block = "uptime"
 format = " $text "
+

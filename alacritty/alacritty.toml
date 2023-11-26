@@ -13,13 +13,16 @@ program = "/usr/bin/bash"
 [window]
 title = "Alacritty"
 dimensions = { columns = 80, lines = 24}
-padding = { x = 8, y = 8 }
+padding = { x = 10, y = 10 }
 decorations = "Full"
 opacity = 1
 
 [font]
 # change to Ubuntu Mono maybe, default is monospace
-normal = { family="monospace", style="Regular" } 
+# normal = { family="Ubuntu Mono", style="Regular" } 
+# normal = { family="monospace", style="Regular" } 
+normal = { family="Iosevka Extended Oblique", style="Regular" } 
+# normal = { family="Noto Mono", style="Regular" } 
 bold = { style="Bold" }
 italic = { style="Italic" }
 bold_italic = { style="Bold Italic" }

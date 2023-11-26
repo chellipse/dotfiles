@@ -2,16 +2,75 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-QT_QPA_PLATFORM=xcb
+SHELL=bash
+# TERMINAL=kitty
+# QT_QPA_PLATFORM=xcb
 
-export PATH="$HOME/.emacs.d/bin:$PATH"
-export PATH="$HOME/i3status-rust:$PATH"
 export PATH="$HOME/bin:$PATH"
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+# emacs var
+export PATH="$HOME/.emacs.d/bin:$PATH"
+
+# i3 var
+export PATH="$HOME/i3status-rust:$PATH"
+
+# bemenu var
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
+
+# Go var
+export PATH="$PATH:/usr/local/go/bin"
+
+# less color variables
+export LESS_TERMCAP_mb=$'\E[38;5;3m'
+export LESS_TERMCAP_md=$'\E[38;5;12m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[48;5;15;38;5;0m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[38;5;2m'
+
+# use nvim as your pager
+# export MANPAGER='nvim +Man!'
+
+# ranger variables
+export TERMCMD=kitty
+export VISUAL=nvim
+
+# helix var
+export HELIX_RUNTIME=~/src/helix/runtime
 
 fnv() {
     find . -iname "$1" | xargs nvim
 }
+
+fn() {
+    find . -iname "*$1*"
+}
+
+freg() {
+    find . -iregex ".*$1.*"
+}
+
+tgz() {
+    tar -cz -f "$2.tar.gz" "$1"
+}
+
+txz() {
+    tar -cJ -f "$2.tar.xz" "$1"
+}
+
+fzv() {
+    local file
+    file=$(fzf)  # Run fzf and capture its output
+    if [ -n "$file" ]; then  # Check if the output is non-empty
+        nvim "$file"  # Open the selected file with nvim
+    else
+        echo "No file selected."
+    fi
+}
+
+# You can then call this function like this:
+# fzf_to_nvim
 
 # If not running interactively, don't do anything
 case $- in
@@ -67,10 +126,59 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Color codes
+BLACK="\e[38;5;0m"
+RED="\e[38;5;1m"
+GREEN="\e[38;5;2m"
+YELLOW="\e[38;5;3m"
+BLUE="\e[38;5;4m"
+MAGENTA="\e[38;5;5m"
+CYAN="\e[38;5;6m"
+WHITE="\e[38;5;7m"
+RESET="\e[0m"
+# with escapes
+# BLACK="\[\e[38;5;0m\]"  
+# RED="\[\e[38;5;1m\]"
+# GREEN="\[\e[38;5;2m\]"
+# YELLOW="\[\e[38;5;3m\]"
+# BLUE="\[\e[38;5;4m\]"
+# MAGENTA="\[\e[38;5;5m\]"
+# CYAN="\[\e[38;5;6m\]"
+# WHITE="\[\e[38;5;7m\]"
+# RESET="\[\e[0m\]"
+# \[\]
+#\[\e[38;5;1m\]c\[\e[38;5;2m\]h\[\e[38;5;3m\]e\[\e[38;5;4m\]l\[\e[38;5;5m\]l
+
+# color_username() {
+#     local user="$1"
+#     local colors=($RED $GREEN $YELLOW $BLUE $MAGENTA $CYAN $WHITE)
+#     local result=""
+#     local index=0
+
+#     for (( i=0; i<${#user}; i++ )); do
+#         char="${user:$i:1}"
+#         result+="${colors[$index]}$char"
+#         index=$(( (index + 1) % ${#colors[@]} ))
+#     done
+
+#     echo -ne "$result"
+# }
+
+color_prompt=yes
 if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    # PS1='$(color_username \u)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    # PS1='\e[38;5;7;48;5;235m\u \e[0m\e[38;5;7;48;5;8m: \e[0m\e[38;5;0;48;5;8m\w\e[0m \e[38;5;7;48;5;0m$\e[0m '
+    # PS1='\e[38;5;2;48;5;0m\u:\w\e[0m $ '
+    # PS1='\e[48;5;0m$(color_username \u)\e[38;5;7;48;5;0m :\w\e[0m $ '
+    # PS1="\[\e[48;5;0m\]$(color_username \u)\[\e[38;5;7;48;5;0m\] :\w\[\e[0m\] $ "
+    # PS1='$(color_username \u) $ '
+    # PS1='\[\e[48;5;0m\]\[\e[38;5;1m\]c\[\e[38;5;2m\]h\[\e[38;5;3m\]e\[\e[38;5;4m\]l\[\e[38;5;5m\]l-\u\[\e[38;5;7;48;5;0m\] :\w\[\e[0m\] $ '
+    # PS1='\[\e[38;5;1m\]c\[\e[38;5;2m\]h\[\e[38;5;3m\]e\[\e[38;5;4m\]l\[\e[38;5;5m\]l-\u\[\e[38;5;7;48;5;0m\] :\w\[\e[0m\] $ '
+    PS1='\[\e[38;5;12m\]\u\[\e[0m\]@\[\e[38;5;10m\]\t:\[\e[38;5;7;48;5;0m\] :\w\[\e[0m\] $ '
+    PS1='\[\e[38;5;12m\]\u\[\e[0m\]@\[\e[38;5;10m\]\t:\[\e[38;5;7m\] :\w\[\e[0m\] $ '
 else
+    # PS1='\[\033[01;32m\]test\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     PS1='${debian_chroot:+($debian_chroot)}\u:\w\$ '
 fi
 unset color_prompt force_color_prompt
@@ -84,35 +192,31 @@ case "$TERM" in
         ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
+## enable color support of ls and also add handy aliases
+#if [ -x /usr/bin/dircolors ]; then
+#    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+#    alias ls='ls --color=auto'
+#    alias dir='dir --color=auto'
+#    alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=always'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+#    alias grep='grep --color=always'
+#    alias fgrep='fgrep --color=auto'
+#    alias egrep='egrep --color=auto'
+#fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+## colored GCC warnings and errors
+##export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+## some more ls aliases
+#alias ll='ls -alF'
+#alias la='ls -A'
+#alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+## Add an "alert" alias for long running commands.  Use like so:
+##   sleep 10; alert
+#alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
+# source Alias file
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -128,8 +232,7 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# my aliases
-# alias logseq ='./Downloads/Logseq-linux-x64-0.9.11/Logseq-linux-x64/Logseq'
-# alias emacsc="emacsclient -c -a 'emacs'"
 . "$HOME/.cargo/env"
 source ~/.bash_completion/alacritty
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
